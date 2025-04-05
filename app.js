@@ -332,7 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function renderRevenueChart(data) {
-        const margin = { top: 20, right: 20, bottom: 40, left: 60 };
+        const margin = { top: 30, right: 30, bottom: 60, left: 70 };
         const width = 700 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
@@ -381,19 +381,29 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Add X axis
         svg.append('g')
-            .attr('class', 'axis')
+            .attr('class', 'axis x-axis')
             .attr('transform', `translate(0,${height})`)
             .call(d3.axisBottom(x))
             .selectAll('text')
-            .style('text-anchor', 'end')
-            .attr('transform', 'rotate(-45)');
+            .attr('dy', '1em')
+            .attr('dx', '-0.5em');
         
         // Add Y axis
         svg.append('g')
-            .attr('class', 'axis')
+            .attr('class', 'axis y-axis')
             .call(d3.axisLeft(y)
                 .ticks(5)
                 .tickFormat(d => `$${d3.format(',.0f')(d)}`));
+        
+        // Add Y axis label
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -margin.left + 20)
+            .attr("x", -height / 2)
+            .attr("text-anchor", "middle")
+            .style("fill", "#2c3e50")
+            .style("font-size", "12px")
+            .text("Revenue ($)");
         
         // Add gridlines
         svg.append('g')
@@ -444,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function renderTrendsChart(data) {
-        const margin = { top: 20, right: 20, bottom: 40, left: 60 };
+        const margin = { top: 30, right: 70, bottom: 60, left: 70 };
         const width = 700 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
 
@@ -506,23 +516,43 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Add X axis
         svg.append('g')
-            .attr('class', 'axis')
+            .attr('class', 'axis x-axis')
             .attr('transform', `translate(0,${height})`)
             .call(d3.axisBottom(x))
             .selectAll('text')
-            .style('text-anchor', 'end')
-            .attr('transform', 'rotate(-45)');
+            .attr('dy', '1em')
+            .attr('dx', '-0.5em');
         
         // Add Y axis for leads
         svg.append('g')
-            .attr('class', 'axis')
+            .attr('class', 'axis y-axis')
             .call(d3.axisLeft(yLeads));
         
-        // Add Y axis for deals
+        // Add Y axis label (left)
+        svg.append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", -margin.left + 20)
+            .attr("x", -height / 2)
+            .attr("text-anchor", "middle")
+            .style("fill", "#2c3e50")
+            .style("font-size", "12px")
+            .text("Leads Required");
+        
+        // Add Y axis for deals (right)
         svg.append('g')
-            .attr('class', 'axis')
+            .attr('class', 'axis y-axis')
             .attr('transform', `translate(${width},0)`)
             .call(d3.axisRight(yDeals));
+        
+        // Add Y axis label (right)
+        svg.append("text")
+            .attr("transform", "rotate(90)")
+            .attr("y", -width - margin.right + 20)
+            .attr("x", height / 2)
+            .attr("text-anchor", "middle")
+            .style("fill", "#2c3e50")
+            .style("font-size", "12px")
+            .text("Deals Required");
         
         // Create line generators
         const leadLine = d3.line()
