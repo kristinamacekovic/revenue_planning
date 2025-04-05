@@ -332,25 +332,38 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function renderRevenueChart(data) {
-        // Clear previous chart
-        revenueChartContainer.innerHTML = '';
-        
-        // Add description
-        const description = document.createElement('p');
-        description.className = 'chart-description';
-        description.textContent = 'This chart shows the breakdown between existing revenue and new revenue needed to meet your monthly targets. Hover over the bars to see detailed values.';
-        revenueChartContainer.appendChild(description);
-        
-        const margin = {top: 40, right: 30, bottom: 60, left: 80};
-        const width = revenueChartContainer.clientWidth - margin.left - margin.right;
+        const margin = { top: 20, right: 20, bottom: 40, left: 60 };
+        const width = 700 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
+
+        // Clear previous chart
+        d3.select("#revenueChart").html("");
         
-        const svg = d3.select('#revenueChart')
-            .append('svg')
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
-            .append('g')
-            .attr('transform', `translate(${margin.left},${margin.top})`);
+        // Add chart description
+        d3.select("#revenueChart")
+            .append("div")
+            .attr("class", "chart-description")
+            .text("This chart shows the breakdown between existing revenue and new revenue needed to meet your monthly targets. Hover over the bars to see detailed values.");
+        
+        // Add legend
+        const legend = d3.select("#revenueChart")
+            .append("div")
+            .attr("class", "legend");
+        
+        legend.append("div")
+            .attr("class", "legend-item")
+            .html('<div class="legend-color existing-revenue"></div>Existing Revenue');
+        
+        legend.append("div")
+            .attr("class", "legend-item")
+            .html('<div class="legend-color new-revenue"></div>New Revenue');
+
+        const svg = d3.select("#revenueChart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
         
         // Create tooltip
         const tooltip = d3.select('body').append('div')
@@ -428,54 +441,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 .attr('y', y(d.existingRevenue + d.newRevenueNeeded))
                 .attr('height', y(d.existingRevenue) - y(d.existingRevenue + d.newRevenueNeeded));
         });
-        
-        // Add legend
-        const legend = svg.append('g')
-            .attr('class', 'legend')
-            .attr('transform', `translate(${width - 200}, -30)`);
-        
-        legend.append('rect')
-            .attr('width', 15)
-            .attr('height', 15)
-            .style('fill', '#34c759');
-        
-        legend.append('text')
-            .attr('x', 20)
-            .attr('y', 12)
-            .text('Existing Revenue');
-        
-        legend.append('rect')
-            .attr('width', 15)
-            .attr('height', 15)
-            .attr('x', 120)
-            .style('fill', '#0091ff');
-        
-        legend.append('text')
-            .attr('x', 140)
-            .attr('y', 12)
-            .text('New Revenue');
     }
     
     function renderTrendsChart(data) {
-        // Clear previous chart
-        trendsChartContainer.innerHTML = '';
-        
-        // Add description
-        const description = document.createElement('p');
-        description.className = 'chart-description';
-        description.textContent = 'This chart shows the required sales activities over time. The offset in trends reflects the payment delay setting. Hover over the lines to see monthly requirements.';
-        trendsChartContainer.appendChild(description);
-        
-        const margin = {top: 40, right: 80, bottom: 60, left: 80};
-        const width = trendsChartContainer.clientWidth - margin.left - margin.right;
+        const margin = { top: 20, right: 20, bottom: 40, left: 60 };
+        const width = 700 - margin.left - margin.right;
         const height = 400 - margin.top - margin.bottom;
+
+        // Clear previous chart
+        d3.select("#trendsChart").html("");
         
-        const svg = d3.select('#trendsChart')
-            .append('svg')
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
-            .append('g')
-            .attr('transform', `translate(${margin.left},${margin.top})`);
+        // Add chart description
+        d3.select("#trendsChart")
+            .append("div")
+            .attr("class", "chart-description")
+            .text("This chart shows the required sales activities over time. The offset in trends reflects the payment delay setting. Hover over the lines to see monthly requirements.");
+        
+        // Add legend
+        const legend = d3.select("#trendsChart")
+            .append("div")
+            .attr("class", "legend");
+        
+        legend.append("div")
+            .attr("class", "legend-item")
+            .html('<div class="legend-color leads"></div>Leads Required');
+        
+        legend.append("div")
+            .attr("class", "legend-item")
+            .html('<div class="legend-color demos"></div>Demos Required');
+        
+        legend.append("div")
+            .attr("class", "legend-item")
+            .html('<div class="legend-color deals"></div>Deals Required');
+
+        const svg = d3.select("#trendsChart")
+            .append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
         
         // Create tooltip
         const tooltip = d3.select('body').append('div')
@@ -606,36 +610,6 @@ document.addEventListener('DOMContentLoaded', () => {
             .attr('stroke', '#4ecdc4')
             .attr('stroke-width', 2)
             .attr('d', dealLine);
-        
-        // Add legend
-        const legend = svg.append('g')
-            .attr('class', 'legend')
-            .attr('transform', `translate(${width - 300}, -30)`);
-        
-        const legendItems = [
-            {color: '#ff6b6b', text: 'Leads Required'},
-            {color: '#ffd93d', text: 'Demos Required'},
-            {color: '#4ecdc4', text: 'Deals Required'}
-        ];
-        
-        legendItems.forEach((item, i) => {
-            const g = legend.append('g')
-                .attr('transform', `translate(${i * 100}, 0)`);
-            
-            g.append('line')
-                .attr('x1', 0)
-                .attr('x2', 20)
-                .attr('y1', 10)
-                .attr('y2', 10)
-                .attr('stroke', item.color)
-                .attr('stroke-width', 2);
-            
-            g.append('text')
-                .attr('x', 25)
-                .attr('y', 13)
-                .text(item.text)
-                .style('font-size', '12px');
-        });
     }
     
     // Initial setup
