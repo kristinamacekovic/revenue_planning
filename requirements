@@ -1,0 +1,9 @@
+create a simple javscript (d3 or whichever library you want to use) that will allow me to brainstorm how many leads we need in order to meet our revenue goals.
+what i want to be able to adjust is:
+- close rate from lead to customer
+- close rate from demo to customer
+- one time payment from customer
+- revenue target per month
+- assumption of when a customer pays their first payment after being closed
+
+I imagine it looking something similar to pipedrive's goals view, but it can be different.

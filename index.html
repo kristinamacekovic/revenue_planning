@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Revenue Planning Tool - Calculate and visualize revenue targets, leads, and sales activities">
+    <title>Revenue Planning Tool</title>
+    
+    <!-- D3.js from CDN -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Custom styles -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Revenue Planning Tool</h1>
+        
+        <div class="settings-grid">
+            <div class="settings-group">
+                <h2>Conversion Rates</h2>
+                <div class="setting">
+                    <label for="leadToCustomerRate">Lead to Customer Rate (%):</label>
+                    <input type="number" id="leadToCustomerRate" value="5" min="0" max="100" step="0.1">
+                </div>
+                <div class="setting">
+                    <label for="demoToCustomerRate">Demo to Customer Rate (%):</label>
+                    <input type="number" id="demoToCustomerRate" value="25" min="0" max="100" step="0.1">
+                </div>
+            </div>
+            
+            <div class="settings-group">
+                <h2>Revenue Settings</h2>
+                <div class="setting">
+                    <label for="customerPayment">Average Customer Payment ($):</label>
+                    <input type="number" id="customerPayment" value="5000" min="0">
+                </div>
+                <div class="setting">
+                    <label for="paymentDelay">Payment Delay (days):</label>
+                    <input type="number" id="paymentDelay" value="30" min="0">
+                </div>
+            </div>
+            
+            <div class="settings-group">
+                <h2>Existing Revenue</h2>
+                <div class="setting">
+                    <label for="existingRevenue">Base Monthly Revenue ($):</label>
+                    <input type="number" id="existingRevenue" value="80000" min="0">
+                </div>
+                <div class="setting">
+                    <label for="existingGrowth">Monthly Growth Rate (%):</label>
+                    <input type="number" id="existingGrowth" value="1" min="0" max="100" step="0.1">
+                </div>
+            </div>
+            
+            <div class="settings-group">
+                <h2>Scenarios</h2>
+                <div class="scenario-controls">
+                    <select id="scenarioSelect">
+                        <option value="">Load Scenario...</option>
+                    </select>
+                    <button id="saveScenario">Save Scenario</button>
+                    <button id="deleteScenario">Delete Scenario</button>
+                </div>
+            </div>
+            
+            <div id="resultsSummary" class="settings-group">
+                <!-- Summary will be populated by JavaScript -->
+            </div>
+        </div>
+        
+        <div class="monthly-grid">
+            <div class="month-header">Month</div>
+            <div class="month-header">Target Revenue</div>
+            <div class="month-header">Realized Revenue</div>
+            <div class="month-header">Required Deals</div>
+            <div class="month-header">Required Demos</div>
+            <div class="month-header">Required Leads</div>
+            <div class="month-header">Existing Revenue</div>
+        </div>
+        
+        <div class="charts-container">
+            <div id="revenueChart" class="chart"></div>
+            <div id="trendsChart" class="chart"></div>
+        </div>
+    </div>
+    
+    <!-- Custom JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html> 

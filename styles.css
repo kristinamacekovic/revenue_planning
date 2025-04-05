@@ -1,0 +1,289 @@
+:root {
+    --primary-color: #0091ff;
+    --success-color: #34c759;
+    --warning-color: #ff6b6b;
+    --background-color: #f5f7fa;
+    --border-color: #e1e4e8;
+    --text-color: #2c3e50;
+    --grid-gap: 1rem;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    padding: 2rem;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+h2 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: var(--text-color);
+}
+
+/* Settings Grid */
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--grid-gap);
+    margin-bottom: 2rem;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.settings-group {
+    padding: 1rem;
+    background: var(--background-color);
+    border-radius: 6px;
+}
+
+.setting {
+    margin-bottom: 1rem;
+}
+
+.setting label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.setting input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+.setting input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 145, 255, 0.1);
+}
+
+/* Monthly Grid */
+.monthly-grid {
+    display: grid;
+    grid-template-columns: auto repeat(6, 1fr);
+    gap: 1px;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+    overflow-x: auto;
+}
+
+.monthly-grid > div {
+    padding: 8px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.month-header {
+    font-weight: 600;
+    background: var(--background-color) !important;
+    padding: 12px 8px !important;
+    text-align: center;
+}
+
+.month-name {
+    font-weight: 500;
+}
+
+.monthly-grid input {
+    width: 100%;
+    padding: 6px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.monthly-grid input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(0, 145, 255, 0.1);
+}
+
+.adjusted-target {
+    font-size: 12px;
+    margin-top: 4px;
+    font-style: italic;
+}
+
+/* Charts */
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+    gap: var(--grid-gap);
+    margin-bottom: 2rem;
+}
+
+.chart {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.chart-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+/* Scenario Controls */
+.scenario-controls {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.scenario-controls select {
+    flex: 1;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.scenario-controls button {
+    padding: 0.5rem 1rem;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.scenario-controls button:hover {
+    background-color: #007acc;
+}
+
+/* Results Summary */
+#resultsSummary ul {
+    list-style: none;
+}
+
+#resultsSummary li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+/* Status Colors */
+.surplus-positive {
+    color: var(--success-color) !important;
+}
+
+.deficit-warning {
+    color: var(--warning-color) !important;
+}
+
+/* Tooltip */
+.tooltip {
+    position: absolute;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.tooltip-title {
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.tooltip-value {
+    margin-bottom: 2px;
+}
+
+/* D3 Chart Styles */
+.grid line {
+    stroke: #e0e0e0;
+    stroke-opacity: 0.7;
+}
+
+.grid path {
+    stroke-width: 0;
+}
+
+.axis text {
+    font-size: 12px;
+}
+
+.axis line, .axis path {
+    stroke: #999;
+}
+
+.bar.existing-revenue {
+    fill: var(--success-color);
+}
+
+.bar.new-revenue {
+    fill: var(--primary-color);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding: 1rem;
+    }
+    
+    .settings-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .monthly-grid {
+        font-size: 0.9rem;
+    }
+    
+    .scenario-controls {
+        flex-direction: column;
+    }
+    
+    .scenario-controls button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .monthly-grid {
+        font-size: 0.8rem;
+    }
+    
+    .setting label {
+        font-size: 0.9rem;
+    }
+} 
